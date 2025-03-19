@@ -9,6 +9,52 @@
     学号：\underline{20232131017\hspace{2.5cm}}
 \end{center}
 
-\textbf{问题 1.} 已知，$x^e \equiv c \pmod{n}$，其中$e = 65537$，$c = 787448046610690384536113698384269$，$n = 4608698932612205094380746525651403$。请求解$x$，并把这串整数转换为字符串，你会发现一个新的世界！
+\textbf{问题 1.} 已知，$x^e \equiv c \pmod{n}$，其中$e = 65537$，$c = 787448046610690384536113698384269$，$n = 4608698932612205094380746525651403$。请求解$x$，并把这串整数转换为字符串，你会发现一个新的世界！\\
+\begin{minted}[frame=single, fontsize=\small]{Python}
+    import sympy
+    from Crypto.Util.number import long_to_bytes
+
+    n = 4608698932612205094380746525651403
+    e = 65537
+    c = 787448046610690384536113698384269
+
+    print("n is prime?:", sympy.isprime(n))
+
+    factors = sympy.factorint(n)
+    print("factors of n:", factors)
+
+    p = list(factors.keys())[0]
+    q = list(factors.keys())[1]
+
+    print("p:", p)
+    print("q:", q)
+
+    phi = (p - 1) * (q - 1)
+
+    def extended_gcd(a, b):
+        if b == 0:
+            return (a, 1, 0)
+        else:
+            g, x, y = extended_gcd(b, a % b)
+            return (g, y, x - (a // b) * y)
+        
+    g,x,y = extended_gcd(e, phi)
+    d = x % phi
+
+    print("d:", d)
+
+    m = pow(c, d, n)
+    print("m:", m)
+
+    print(long_to_bytes(m))
+\end{minted}
+
+n is prime?: False \\
+factors of n: {66610052387388277: 1, 69189240473931839: 1} \\
+p: 66610052387388277\\
+q: 69189240473931839\\
+d: 3598944015948661448804211905231345\\
+m: 5735816763073854918203775149089\\
+b'Hello, World!'
 
 \end{document}
