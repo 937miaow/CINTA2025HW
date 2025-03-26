@@ -1,0 +1,77 @@
+\documentclass[a4paper]{CINTA}
+\title{CINTA HW02}
+\author{hhh937meow}
+\begin{document}
+\maketitle
+\begin{center}
+    年级：\underline{2023\hspace{1.5cm}} 
+    姓名：\underline{黄海桦\hspace{1.5cm}} 
+    学号：\underline{20232131017\hspace{1.5cm}} 
+\end{center}
+
+\textbf{问题 1.} 证明对任意偶数阶群$\mathbb{G}$，都存在$g \in \mathbb{G}$，$g \neq e$且$g^2 = e$。\\
+$\because$群$\mathbb{G}$的阶数为偶数，则设$\mathbb{G}=\{e,a_1,a_2,...,a_n\},\text{n is odd}$。\\
+根据群的逆元唯一性，$\forall g \in \mathbb{G},g \neq e$，$g$与$g^{-1}$是一一对应的。\\
+$\therefore a_1,a_2,...,a_n$中，$\exists a_i,a_j$两两对应，互为逆元。\\
+又$\because \text{n is odd}$，则存在一个元素$a_k$，使得$a_k$只能与自身互为逆元。\\
+$\therefore a_k^2=e$。\\
+$\therefore$对任意偶数阶群$\mathbb{G}$，都存在$g \in \mathbb{G}$，$g \neq e$且$g^2 = e$。\\
+
+\textbf{问题 2.}$\mathbb{G}$是阿贝尔群，$\mathbb{H}$和 $\mathbb{K}$是$\mathbb{G}$的子群。请证明$\mathbb{H} \mathbb{K} = \{hk: h \in \mathbb{H}, k \in \mathbb{K}\}$是群$\mathbb{G}$的子群。如果$\mathbb{G}$不是阿贝尔群，结论是否依然成立？\\
+对于$\forall h_1k_1,h_2k_2 \in \mathbb{HK}$。\\
+$\because \mathbb{G}$是阿贝尔群，$\mathbb{H}$和 $\mathbb{K}$是$\mathbb{G}$的子群。\\
+$\therefore k_1h_2 = h_2k_1 \in \mathbb{G}$。\\
+$\therefore (h_1k_1)(h_2k_2) = h_1(k_1h_2)k_2 = h_1(h_2k_1)k_2 = (h_1h_2)(k_1k_2) \in \mathbb{HK}$。\\
+则$\mathbb{HK}$具有封闭性。\\
+对于$\forall hk \in \mathbb{HK}, (hk)^{-1} = k^{-1}h^{-1}$。\\
+$\because \mathbb{G}$是阿贝尔群，$\mathbb{H}$和 $\mathbb{K}$是$\mathbb{G}$的子群。\\
+$\therefore k^{-1}h^{-1}=h^{-1}k^{-1} \in \mathbb{G}$。\\
+$\therefore h^{-1}k^{-1}=(hk)^{-1} \in \mathbb{HK}$。\\
+$\therefore \mathbb{HK}$是群$\mathbb{G}$的子群。\\
+\\
+若$\mathbb{G}$不是阿贝尔群，结论不一定成立。\\
+
+\textbf{问题 3.}设$\mathbb{G}$是阿贝尔群，$m$是任意整数，记$\mathbb{G}[m] = \{ g\in \mathbb{G}: g^m = e \}$。请证明$\mathbb{G}[m]$是$\mathbb{G}$的一个子群。\\
+先证封闭性：
+对于$\forall g_1,g_2 \in \mathbb{G}[m]$，$g_1^m = e, g_2^m = e$。\\
+则$[g_1g_2]^m=(g_1g_2)(g_1g_2)...(g_1g_2)$，共$m$个$g_1g_2$相乘。\\
+又$\because \mathbb{G}$是阿贝尔群，$g_1g_2=g_2g_1$。\\
+$\therefore [g_1g_2]^m=(g_1g_2)(g_1g_2)...(g_1g_2)=g_1^mg_2^m=e$。\\
+$\therefore g_1g_2 \in \mathbb{G}[m]$。\\
+再证逆元封闭性：
+对于$\forall g \in \mathbb{G}[m]$，$g^m = e$。\\
+则$(g^{-1})^m=(g^m)^{-1}=e^{-1}=e$。\\
+$\therefore g^{-1} \in \mathbb{G}[m]$。\\
+$\therefore \mathbb{G}[m]$是$\mathbb{G}$的一个子群。\\
+
+\textbf{问题 4.}证明：设$n$是正整数，$n$次单位根群$\mathbb{U}_n$是循环群。请问，$\mathbb{U}_n$有多少个生成元？\\
+对于$n$次单位根群$\mathbb{U}_n$，$\mathbb{U}_n=\{e^{2\pi i k/n}: k=0,1,2,...,n-1\}$。\\
+要证明$\mathbb{U}_n$是循环群，只需证明$\mathbb{U}_n$中存在一个元素$g$，使得$\mathbb{U}_n=\langle g \rangle$。\\
+取$g=e^{2\pi i/n}$，则$\mathbb{U}_n=\langle g \rangle$。\\
+$\therefore \mathbb{U}_n$是循环群。\\
+或：\\
+若元素$g$生成$\mathbb{U}_n$，则要求$g$的最小正整数的阶为$1$。\\
+即对于$g=e^{2\pi i d/n}$，$d$与$n$互素。\\
+由欧拉函数可知，必定存在一个这样的$d$与$n$互素。\\
+$\therefore$ $\mathbb{U}_n$是循环群。\\
+又$\because |\mathbb{U}_n|=n$。\\
+$\therefore$ $\mathbb{U}_n$有$\phi(n)$个生成元。\\
+
+\textbf{问题 5.}证明：如果群$\mathbb{G}$没有非平凡子群，则群$\mathbb{G}$是循环群。\\
+使用反证法证明：
+设命题$p$：群$\mathbb{G}$没有非平凡子群，$q$：群$\mathbb{G}$是循环群。\\
+则需证明$p \wedge \neg q$为假，即证明群$\mathbb{G}$没有非平凡子群且群$\mathbb{G}$不是循环群为假。\\
+若群$\mathbb{G}$不是循环群，则任取$g \in \mathbb{G}$，使用$g$构造一个子群$\mathbb{H}$。\\
+$\therefore \mathbb{H}=\langle g \rangle=\{e,g,g^2,...,g^{m-1}\}$。\\
+$\because \mathbb{G}$没有非平凡子群，$\mathbb{H}$是$\mathbb{G}$的子群。\\
+$\therefore \mathbb{H}=\mathbb{G}$或$\mathbb{H}=\{e\}$。\\
+$\therefore$群$\mathbb{G}$是循环群。\\
+$\therefore p \wedge \neg q$为假。\\
+$\therefore$如果群$\mathbb{G}$没有非平凡子群，则群$\mathbb{G}$是循环群。\\
+
+\textbf{问题 6.}证明：设$\mathbb{G}$为任意群，且$g\in \mathbb{G}$。如果存在$m, n \in \mathbb{Z}$使得$g^m = e$且$g^n = e$，则$g^d = e$，其中$d = \text{gcd}(m, n)$。\\
+$\because d=\text{gcd}(m, n)$。\\
+$\therefore \exists r,s \in \mathbb{Z}$，使得$mr+ns=d$。\\
+$\therefore g^d=g^{mr+ns}=g^{mr}g^{ns}=(g^m)^r(g^n)^s=e^r e^s=e$。\\
+证毕。\\
+\end{document}
