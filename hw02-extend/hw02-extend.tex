@@ -1,0 +1,87 @@
+\documentclass[a4paper]{CINTA}
+\title{CINTA HW02-extend}
+\author{hhh937meow}
+\begin{document}
+\maketitle
+\begin{center}
+    年级：\underline{2023\hspace{1.5cm}} 
+    姓名：\underline{黄海桦\hspace{1.5cm}} 
+    学号：\underline{20232131017\hspace{1.5cm}} 
+\end{center}
+
+\textbf{问题 1.} 对任意给定的一个素数$p$，求出$\mathbb{Z}_p^*$的最小生成元。任取给定一个整数$n$，对所有大于等于$1$小于$n$的素数$p$，求$\mathbb{Z}_p^*$的最小生成元。令$n = 1000000$，给出以上最小生成元集合中的最大值，及其所对应的素数$p$。
+
+\textbf{思路：}
+按照cinta中给出的思路，我们首先要解决的就是\text{find\_all\_prime\_factors}的问题。\\
+那么我们可以使用贪心的思想，对于一个数$n$，我们一直用$2$整除它，直到不能整除为止，然后我们就可以得到一个数$m$，使得$n = 2^k \cdot m$，接下来我们就可以用$m$去除以奇数（从$3$到$sqrt(n)$）。这样，我们就找到了$n$的全部素因子。\\
+
+在其次，对于最后生成$\mathbb{Z}_p^*$的$p$时，要生产大量的素数，查了一下网上，了解到了埃氏筛法。\\
+那么就用埃氏筛法生成$1$到$n$的所有素数。\\
+
+剩下的就是比较公式化的py操作了。\\
+
+\textbf{代码：}
+\begin{minted}[frame=single, fontsize=\small]{python}
+    import math
+
+def sieve_primes(limit):
+    # 埃氏筛法
+    is_prime = [True] * limit
+    is_prime[0:2] = [False, False]
+    for i in range(2, int(math.sqrt(limit)) + 1):
+        if is_prime[i]:
+            for j in range(i * i, limit, i):
+                is_prime[j] = False
+    return [i for i, val in enumerate(is_prime) if val]
+
+def get_prime_factors(n):
+    factors = set()
+    # 先除以2
+    while n % 2 == 0:
+        factors.add(2)
+        n //= 2
+    # 再试奇数因子
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
+        while n % i == 0:
+            factors.add(i)
+            n //= i
+    # 最后剩下的是一个大质因子
+    if n > 2:
+        factors.add(n)
+    return list(factors)
+
+def find_min_generator(p):
+    if p <= 2:
+        return None
+    factors = get_prime_factors(p - 1)
+    for g in range(2, p):
+        if all(pow(g, (p - 1) // q, p) != 1 for q in factors):
+            return g
+    return None
+
+def find_all_min_generators(n):
+    result = {}
+    primes = sieve_primes(n)
+    for p in primes:
+        if p > 2:
+            g = find_min_generator(p)
+            if g:
+                result[p] = g
+    return result
+
+def find_max_generator_from_dict(gen_dict):
+    max_value = max(gen_dict.values())
+    max_keys = [p for p, g in gen_dict.items() if g == max_value]
+    return max_keys, max_value
+
+if __name__ == "__main__":
+    n = int(input("Enter a number: "))
+    generator_dict = find_all_min_generators(n)
+    max_keys, max_value = find_max_generator_from_dict(generator_dict)
+    print(f"\n最大生成元值为 {max_value}，对应的素数 p 为: {max_keys}")
+\end{minted}
+
+\textbf{运行结果：}
+Enter a number: 1000000 \\
+最大生成元值为 73，对应的素数 p 为: [760321]
+\end{document}
