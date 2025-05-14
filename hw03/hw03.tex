@@ -1,0 +1,107 @@
+\documentclass[a4paper]{CINTA}
+\title{CINTA HW03}
+\author{hhh937meow}
+\begin{document}
+\maketitle
+\begin{center}
+    年级：\underline{2023\hspace{1.5cm}} 
+    姓名：\underline{黄海桦\hspace{1.5cm}} 
+    学号：\underline{20232131017\hspace{1.5cm}} 
+\end{center}
+
+\textbf{问题 1.}给定任意群$\mathbb{G}$，$\mathbb{H}$是群$\mathbb{G}$的正规子群。请证明，如果群$\mathbb{G}$是阿贝尔群，则商群$\mathbb{G}/\mathbb{H}$也是阿贝尔群。\\
+\textbf{证明：} \\
+要证明$\mathbb{G}/\mathbb{H}$是阿贝尔群，我们需要证明对于任意两个元素$a\mathbb{H},b\mathbb{H} \in \mathbb{G}/\mathbb{H}$，都有$(a\mathbb{H})(b\mathbb{H})=(b\mathbb{H})(a\mathbb{H})$ \\
+根据商群的运算定义，有：$(a\mathbb{H})(b\mathbb{H})=(ab)\mathbb{H}$ \\
+同时，$(b\mathbb{H})(a\mathbb{H})=(ba)\mathbb{H}$ \\
+$\because \mathbb{G}$是阿贝尔群，所以$ab=ba$，因此$(ab)\mathbb{H}=(ba)\mathbb{H}$，即$(a\mathbb{H})(b\mathbb{H})=(b\mathbb{H})(a\mathbb{H})$ \\
+$\therefore$商群$\mathbb{G}/\mathbb{H}$也是阿贝尔群 \\
+
+\textbf{问题 2.}给定任意群$\mathbb{G}$，$\mathbb{H}$是群$\mathbb{G}$的正规子群。请证明，如果群$\mathbb{G}$是循环群，则商群$\mathbb{G}/\mathbb{H}$也是循环群。
+\textbf{证明：} \\
+已知群$\mathbb{G}$是循环群，所以存在一个生成元$g \in \mathbb{G}$，使得$\mathbb{G}=<g>$ \\
+则群$\mathbb{G}$的任意元素都可以表示为$g^n$，其中$n \in \mathbb{Z}$ \\
+要证明商群$\mathbb{G}/\mathbb{H}$是循环群，我们需要找到一个元素$g\mathbb{H} \in \mathbb{G}/\mathbb{H}$，使得$\mathbb{G}/\mathbb{H}=<g\mathbb{H}>$ \\
+取$g\mathbb{H}$为商群$\mathbb{G}/\mathbb{H}$的一个元素，考虑$(g\mathbb{H})^n$，其中$n \in \mathbb{Z}$ \\
+根据商群的运算定义，有：$(g\mathbb{H})^n=g^n\mathbb{H}$ \\
+不难得知，对所有的正整数$n$都成立 \\
+现在考虑负整数的情况，设$n=-m$，其中$m \in \mathbb{Z}^+$，则有：\\
+$(g\mathbb{H})^{-m}=((g\mathbb{H})^{-1})^m$ \\
+$\because (g\mathbb{H})(g^{-1}\mathbb{H})=(gg^{-1}\mathbb{H})=e\mathbb{H}=\mathbb{H}$ \\
+且 $(g^{-1}\mathbb{H})(g\mathbb{H})=(g^{-1}g\mathbb{H})=e\mathbb{H}=\mathbb{H}$ \\
+$\therefore$$(g\mathbb{H})^{-m}=(g^{-1}\mathbb{H})^m=(g^{-1})^m\mathbb{H}=g^{-m}\mathbb{H}$ \\
+$\therefore$，商群$\mathbb{G}/\mathbb{H}$中的任意元素都可以表示为$(g\mathbb{H})^n=g^n\mathbb{H}$，其中$n \in \mathbb{Z}$ \\
+$\therefore$，商群$\mathbb{G}/\mathbb{H}$是循环群 \\
+
+\textbf{问题 3.}设$p$和$q$是两个不同的素数，$\mathbb{G}$是阶为$pq$的阿贝尔群，请证明$\mathbb{G}$是循环群。\\
+\textbf{证明：} \\
+要证明$\mathbb{G}$是循环群，我们需要证明$\mathbb{G}$中存在一个元素的阶为$pq$ \\
+根据拉格朗日定理，群$\mathbb{G}$的阶为$pq$，则$\mathbb{G}$中任意元素的阶只能是$p$、$q$、$pq$ \\
+设$\mathbb{G}$中存在一个元素$g$ \\
+若$g$的阶为$pq$，则$\mathbb{G}=<g>$，所以$\mathbb{G}$是循环群 \\
+下面假设$\mathbb{G}$中不存在一个阶为$pq$的元素 \\
+那么$\mathbb{G}$中所有元素的阶只能是$p$或$q$ \\
+如果$\mathbb{G}$中所有非单位元的元素的阶都是$p$，根据群的性质，这要求群的阶是$p$的幂次。但是$|\mathbb{G}|=pq$，这不是$p$的幂次 \\
+同理，如果$\mathbb{G}$中所有非单位元的元素的阶都是$q$，根据群的性质，这要求群的阶是$q$的幂次。但是$|\mathbb{G}|=pq$，这不是$q$的幂次 \\
+所以$\mathbb{G}$中至少存在一个阶为$p$的元素和一个阶为$q$的元素 \\
+设$a$的阶为$p$，$b$的阶为$q$ \\
+又$\because \mathbb{G}$是阿贝尔群，则$ab=ba$ \\
+$\because (ab)^{pq}=a^{pq}b^{pq}=e^qe^p=e$ \\
+$\therefore$ $ab$的阶整除$pq$。设$|ab|=k$，则$k \in \{1,p,q,pq\}$ \\
+如果$k=1$，则$ab=e$，这与$a$和$b$的阶矛盾 \\
+如果$k=p$，则$(ab)^p=a^pb^p=e^qe^p=e$，这与$b$的阶矛盾 \\
+如果$k=q$，则$(ab)^q=a^qb^q=e^qe^p=e$，这与$a$的阶矛盾 \\
+如果$k=pq$，则$(ab)^{pq}=a^{pq}b^{pq}=e^qe^p=e$ \\
+所以$|ab|=pq$，即$ab$的阶为$pq$ \\
+$\therefore$，$\mathbb{G}$是循环群 \\
+
+\textbf{问题 4.}证明：$\mathbb{GL}_n(R)/\mathbb{SL}_n(R)$与乘法群$\mathbb{R}^*$同构。\\
+\textbf{证明：} \\
+设$\mathbb{GL}_n(R)$是$n$阶可逆矩阵的集合，$\mathbb{SL}_n(R)$是行列式为1的$n$阶可逆矩阵的集合 \\
+考虑映射$\phi:\mathbb{GL}_n(R) \to \mathbb{R}^*$，定义为$\phi(A)=\det(A)$，其中$A \in \mathbb{GL}_n(R)$ \\
+$\because$对于任意的$A,B \in \mathbb{GL}_n(R)$，都有：$\phi(AB)=\det(AB)=\det(A)\det(B)=\phi(A)\phi(B)$ \\
+$\therefore$$\phi$是一个同态映射 \\
+对于任意$r \in \mathbb{R}^*$，存在$A \in \mathbb{GL}_n(R)$，使得$\det(A)=r$ \\
+$\therefore$，$\phi$是满射，$Im(\phi)=\mathbb{R}^*$ \\
+易知$Ker(\phi)=\mathbb{SL}_n(R)$ \\
+$\therefore$，$\mathbb{GL}_n(R)/\mathbb{SL}_n(R) \cong \mathbb{R}^*$ \\
+
+\textbf{问题 5.}设$\phi: \mathbb{G}\mapsto \mathbb{H}$是一种群同态。请证明$\phi$是单射当且仅当$\mbox{Ker}\; \phi  = \{e\}$。\\
+\textbf{证明：} \\
+$\Rightarrow$：假设$\phi$是单射，$\therefore$对于任意的$x,y \in \mathbb{G}$，如果$\phi(x)=\phi(y)$，则$x=y$ \\
+设$\phi(x)=\phi(e)$，则$x=e$ \\
+$\therefore$$\phi$的核只有单位元，所以$Ker(\phi)= \{e\}$ \\
+
+$\Leftarrow$：假设$Ker(\phi)  = \{e\}$，$\therefore$对于任意的$x,y \in \mathbb{G}$，如果$\phi(x)=\phi(y)$，则$\phi(xy^{-1})=\phi(x)\phi(y^{-1})=\phi(e)=e$ \\
+$\therefore$，$xy^{-1} \in Ker(\phi)$ \\
+$\therefore$，$xy^{-1}=e$ \\
+$\therefore$，$x=y$ \\
+$\therefore$，$\phi$是单射 \\
+综上所述，$\phi$是单射当且仅当$Ker(\phi)= \{e\}$ \\
+
+\textbf{问题 6.}给定有限阿贝尔群$\mathbb{G}$和正整数$n$，定义映射$\phi: \mathbb{G}\mapsto \mathbb{G}$为，$\forall g \in \mathbb{G}$，$\phi(g) = g^n$。
+请分析并证明，在什么条件下$\phi$会是一种单射？[提示：利用以上证明的结论。]\\
+\textbf{证明：} \\
+对于有限阿贝尔群$\mathbb{G}$和映射$\phi(g) = g^n$，$\forall g,h \in \mathbb{G}$，都有$\phi(gh)=(gh)^n=g^nh^n=\phi(g)\phi(h)$ \\
+$\therefore$，$\phi$是一个同态映射 \\
+由问题五的结论可得，一个群同态是单射当且仅当它的核只包含定义域的单位元 \\
+即：$\mbox{Ker}\; \phi = \{g \in \mathbb{G} \mid g^n = e_{\mathbb{G}}\}$ \\
+也就是除了单位元之外，没有其他元素的$n$次幂为单位元 \\
+即：除了单位元之外，没有其他元素的阶整除$n$ \\
+所以$\phi$是单射当且仅当$gcd(|\mathbb{G}|,n)=1$ \\
+
+$\Rightarrow$：
+假设$\phi$是单射，$\therefore$对于任意的$x,y \in \mathbb{G}$，如果$\phi(x)=\phi(y)$，则$x=y$ \\
+设$\phi(x)=\phi(e)$，则$x=e$ \\
+$\therefore$$\phi$的核只有单位元，所以$Ker(\phi)= \{e\}$ \\
+$\therefore$$gcd(|\mathbb{G}|,n)=1$ \\
+
+$\Leftarrow$：
+假设$gcd(|\mathbb{G}|,n)=1$，$\therefore$对于任意的$x,y \in \mathbb{G}$，如果$\phi(x)=\phi(y)$，则$\phi(xy^{-1})=\phi(x)\phi(y^{-1})=\phi(e)=e$ \\
+$\therefore$$xy^{-1} \in Ker(\phi)$
+$\therefore$$xy^{-1}=e$ \\
+$\therefore$$x=y$ \\
+$\therefore$$\phi$是单射 \\
+综上所述，$\phi$是单射当且仅当$gcd(|\mathbb{G}|,n)=1$ \\
+
+\end{document}

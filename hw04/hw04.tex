@@ -1,0 +1,133 @@
+\documentclass[a4paper]{CINTA}
+\title{CINTA HW04}
+\author{hhh937meow}
+\begin{document}
+\maketitle
+\begin{center}
+    年级：\underline{2023\hspace{1.5cm}} 
+    姓名：\underline{黄海桦\hspace{1.5cm}} 
+    学号：\underline{20232131017\hspace{1.5cm}} 
+\end{center}
+
+\textbf{问题 1.}请不使用电子设备完成求解$x^{113} \equiv 15 \pmod{221}$。\\
+\textbf{求解：} \\
+$\because 221 = 13 \times 17$，由中国剩余定理可得：
+\begin{align*}
+    x^{113} &\equiv 15 \equiv 2 \pmod{13} \\
+    x^{113} &\equiv 15 \pmod{17}
+\end{align*}
+\textbf{1.1} $x^{113} \equiv 2 \pmod{13}$\\
+$x^{12} \equiv 1 \pmod{13}$(费马小定理)\\
+令$x^{113s} \equiv x^{12k + 1} \pmod{13}$，其中$0 \leq r < 12$\\
+则求$113s + (-12)t = 1$\\
+由egcd算法可得：$s = 5, t = 47$ \\
+则$x^{113*5} \equiv x \equiv 2^{5} \pmod{13}$
+即$x \equiv 6 \pmod{13}$\\
+
+\textbf{1.2} $x^{113} \equiv 15 \pmod{17}$\\
+$x^{16} \equiv 1 \pmod{17}$(费马小定理)\\
+又$\because x^{113} = x^{16*7+1}$\\
+所以$x \equiv 15 \pmod{17}$\\
+
+所以求：
+\begin{align*}
+    x &\equiv 6 \pmod{13} \\
+    x &\equiv 15 \pmod{17}
+\end{align*}
+
+由中国剩余定理得：$x = 6*17*17^{-1} + 15*13*13^{-1} \pmod{221}$
+其中$17^{-1} \equiv 10 \pmod{13}$\\
+$13^{-1} \equiv 4 \pmod{17}$(以上两逆元可由egcd求得)\\
+所以$x \equiv 6*17*10 + 15*13*4 \pmod{221}$\\
+所以$x \equiv 32 \pmod{221}$
+
+\textbf{问题 2.}使用已知方法找两个长约为$1024$比特的素数$p$和$q$，并令$n = p*q$，$m = 2024$，$e=2^{255} - 19$。然后，分别使用CRT或者不使用CRT计算$m^e \bmod{n}$，并比较两种计算的系统开销，看CRT是否确实可以大幅度地提升计算效率。请提交具体的代码和测试结果。\\
+\textbf{求解：} \\
+\textbf{2.1} 代码如下：
+\begin{minted}[frame=single, fontsize=\small]{Python}
+    import sympy
+    from Crypto.Util.number import long_to_bytes
+    import time
+    import random
+    import math
+
+    def generate_large_prime(bits):
+        while True:
+            p = sympy.randprime(2**(bits-1), 2**bits)
+            if sympy.isprime(p):
+                return p
+                
+    def extended_gcd(a, b):
+        if b == 0:
+            return (a, 1, 0)
+        else:
+            g, x, y = extended_gcd(b, a % b)
+            return (g, y, x - (a // b) * y)
+
+    def modinv(a, m):
+        g, x, y = extended_gcd(a, m)
+        if g != 1:
+            raise Exception('Modular inverse does not exist')
+        else:
+            return x % m
+
+    def mod_exp(base, exp, mod):
+        result = 1
+        base = base % mod
+        while exp > 0:
+            if (exp % 2) == 1:
+                result = (result * base) % mod
+            exp = exp >> 1
+            base = (base * base) % mod
+        return result
+
+    def CRT(a1, a2, m1, m2):
+        M = m1 * m2
+        M1 = M // m1
+        M2 = M // m2
+        inv_M1 = modinv(M1, m1)
+        inv_M2 = modinv(M2, m2)
+        x = (a1 * M1 * inv_M1 + a2 * M2 * inv_M2) % M
+        return x
+
+    # Generate two large prime numbers
+    bits = 1024
+    p = generate_large_prime(bits)
+    q = generate_large_prime(bits)
+    n = p * q
+    m = 2024
+    e = 2**255 - 19
+
+    # Calculate m^e mod n without CRT
+    start_time = time.time()
+    result_without_CRT = mod_exp(m, e, n)
+    end_time = time.time()
+    time_without_CRT = end_time - start_time
+    print("Result without CRT:", result_without_CRT)
+
+    # Calculate m^e mod n with CRT
+    start_time = time.time()
+    a1 = mod_exp(m, e, p)
+    a2 = mod_exp(m, e, q)
+    result_with_CRT = CRT(a1, a2, p, q)
+    end_time = time.time()
+    time_with_CRT = end_time - start_time
+    print("Result with CRT:", result_with_CRT)
+
+    # Check if the results are the same
+    assert result_without_CRT == result_with_CRT, "Results do not match!"
+    print("Results match!")
+
+    # Compare the time taken
+    print("Time without CRT:", time_without_CRT)
+    print("Time with CRT:", time_with_CRT)
+\end{minted}
+
+\textbf{2.2} 运行结果如下：\\
+Result without CRT: 915981967780544219702145375838011146467324371695402546633385149536075967603372229907695113275052217756890296216086982414793819573722679173902791384780283560442344917258247508022923199242408649248047002787975246041379226901819696450405986519670382817390258203263270934781284538002724801422812151665114863061863315014484573013110008407062455819929235063803753267013275361033559928676641519077008129791971693475057432001672821910335108245536203120826022238442665975779327348439017910804382053809976165935312004301293387380486625256830808125489447454559752619251490942444211218050771518284612048349195883808925868746516
+Result with CRT: 915981967780544219702145375838011146467324371695402546633385149536075967603372229907695113275052217756890296216086982414793819573722679173902791384780283560442344917258247508022923199242408649248047002787975246041379226901819696450405986519670382817390258203263270934781284538002724801422812151665114863061863315014484573013110008407062455819929235063803753267013275361033559928676641519077008129791971693475057432001672821910335108245536203120826022238442665975779327348439017910804382053809976165935312004301293387380486625256830808125489447454559752619251490942444211218050771518284612048349195883808925868746516
+Results match!
+Time without CRT: 0.0040013790130615234
+Time with CRT: 0.0029816627502441406
+
+\end{document}
